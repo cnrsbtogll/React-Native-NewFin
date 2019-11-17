@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import InputField from "../components/form/InputField";
 import NextArrowButton from "../components/buttons/NextArrowButton";
 import colors from "../styles/colors";
+import Notification from '../components/Notification';
 import {
   Text,
   StyleSheet,
@@ -13,14 +14,27 @@ import {
 } from "react-native";
 
 export default class LogIn extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            formValid:false,
+        }
+        this.handleCloseNotification=this.handleCloseNotification.bind(this);
+    }
   handleNextButton() {
     alert("next button basıldı");
   }
+  handleCloseNotification(){
+      this.setState({formValid:true})
+  }
   render() {
+      const {formValid}=this.state;      
+      const showNotification=formValid?false:true;
+      const background=formValid ? colors.green01 : colors.darkOrange; 
     return (
       <KeyboardAvoidingView 
-        style={styles.wrapper}
-        
+        style={[{ backgroundColor:background},styles.wrapper]}
+        //behavior="padding"
         >
         <View style={styles.scrollViewWrapper}>
           <ScrollView style={styles.scrollView}>
@@ -47,6 +61,15 @@ export default class LogIn extends Component {
           <View style={styles.nextButton}>
             <NextArrowButton handleNextButton={this.handleNextButton} />
           </View>
+          <View style={showNotification?{marginTop:10 }: {}}>
+              <Notification
+                showNotification={showNotification}
+                handleCloseNotification={this.handleCloseNotification}
+                type="Error"
+                firstLine="Bu giriş bilgileri doğru değil."
+                secondLine="Lütfen tekrar deneyiniz."
+              />
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -57,7 +80,6 @@ const styles = StyleSheet.create({
   wrapper: {
     display: "flex",
     flex: 1,
-    backgroundColor: colors.green01
   },
   scrollViewWrapper: {
     marginTop: 70,
@@ -76,9 +98,9 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   nextButton: {
-    position: "absolute",
+    //position: "absolute",
     alignItems: "flex-end",
     right: 20,
-    bottom: 10
+    bottom: 20
   }
 });
