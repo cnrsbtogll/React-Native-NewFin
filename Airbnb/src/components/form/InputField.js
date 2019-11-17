@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../styles/colors';
 import { Text, 
@@ -20,7 +20,7 @@ export default class InputField extends Component {
         this.setState({secureInput:!this.state.secureInput});
     }
     render(){
-        const {labelText,labelTextSize,labelColor,textColor,borderBottomColor, inputType, customStyle }=this.props;
+        const {labelText,labelTextSize,labelColor,textColor,borderBottomColor, inputType, customStyle,onChangeText }=this.props;
         const {secureInput}= this.state;
         const fontSize=labelTextSize || 14;
         const color=labelColor || colors.white;
@@ -41,6 +41,7 @@ export default class InputField extends Component {
             autoCorrect={false}
             style={[{color:inputColor, borderBottomColor:borderBottom},styles.inputField]}
             secureTextEntry={secureInput}
+            onChangeText={onChangeText}
         />
         </View> 
         );
@@ -54,7 +55,8 @@ InputField.propTypes={
     textColor:PropTypes.string,
     borderBottomColor:PropTypes.string,
     inputType:PropTypes.string.isRequired,
-    customStyle:PropTypes.object
+    customStyle:PropTypes.object,
+    onChangeText:PropTypes.func,
 };
 
 const styles=StyleSheet.create({

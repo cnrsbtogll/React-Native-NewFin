@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     wrapper:{
         backgroundColor:colors.white,
         height:60,
-        width:'100%',
+        //width:'100%',
         padding:10
     },
     notificationContent:{
