@@ -1,27 +1,48 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Text,StyleSheet, View, TouchableHighlight } from 'react-native'
+import { Text,StyleSheet, View, TouchableOpacity } from 'react-native'
+import colors from '../../styles/colors';
 
 export default class RoundedButton extends Component {
     render() {
-        const {text}=this.props;
+        const {text,textColor,background,handleOnPress, icon }=this.props;
+        const backgroundColor=background ||'transparent';
+        const color=textColor || colors.black;
         return (
-            <TouchableHighlight style={styles.wrapper}>
-                <Text style={styles.buttonText}> {text} </Text>
-            </TouchableHighlight>
-                
-           
+            <TouchableOpacity 
+            style={[{backgroundColor}, styles.wrapper]}
+            onPress={handleOnPress}
+            >
+                <View style={styles.buttonTextWrapper}>
+                {icon}
+                <Text style={[{color},styles.buttonText]}> {text} </Text>
+                </View>
+            </TouchableOpacity>          
         )
     }
 }
 
-RoundedButton.PropTypes={
+RoundedButton.propTypes={
     text:PropTypes.string.isRequired,
+    textColor:PropTypes.string,
+    background:PropTypes.string,
+    icon:PropTypes.object,
+    handleOnPress:PropTypes.func.isRequired,
 };
 
 const styles=StyleSheet.create({
-    wrapper:{
-
+    wrapper:{        
+        display:'flex',
+        padding:15,
+        borderRadius:40,
+        borderWidth:1,
+        borderColor:colors.white,
+        marginBottom:15,
+        alignItems:'center'
+    },
+    buttonTextWrapper:{
+        flexDirection:'row',
+        justifyContent:'flex-end'
     },
     buttonText:{
         fontSize:17,
