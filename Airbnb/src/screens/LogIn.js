@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import InputField from "../components/form/InputField";
 import NextArrowButton from "../components/buttons/NextArrowButton";
 import colors from "../styles/colors";
+import Loader from "../components/Loader";
 import Notification from "../components/Notification";
 import {
   Text,
@@ -20,7 +21,8 @@ export default class LogIn extends Component {
       formValid: true,
       validEmail: false,
       emailAdress: "",
-      validPassword: false
+      validPassword: false,
+      loadingVisible: false,
     };
     this.handleCloseNotification = this.handleCloseNotification.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -29,11 +31,17 @@ export default class LogIn extends Component {
     this.toogleNextButtonState = this.toogleNextButtonState.bind(this);
   }
   handleNextButton() {
-    if (this.state.emailAdress === 'cnrsbtogll@gmail.com' && this.state.validPassword) {
-      this.setState({ formValid: true });
-    } else {
-      this.setState({ formValid: false });
-    }
+    this.setState({ loadingVisible: true });
+    setTimeout(() => {
+      if (
+        this.state.emailAdress === "cnrsbtogll@gmail.com" &&
+        this.state.validPassword
+      ) {
+        this.setState({ formValid: true, loadingVisible:false});
+      } else {
+        this.setState({ formValid: false, loadingVisible:false});
+      }
+    },2000);
   }
   handleCloseNotification() {
     this.setState({ formValid: true });
@@ -70,8 +78,8 @@ export default class LogIn extends Component {
     return true;
   }
   render() {
-    const { formValid } = this.state;
-    const showNotification = formValid ? false : true;
+    const { formValid, loadingVisible } = this.state;
+    const showNotification = !formValid; //? false : true;
     const background = formValid ? colors.green01 : colors.darkOrange;
     const notificationMarginTop = showNotification ? 10 : 0;
     return (
@@ -109,7 +117,13 @@ export default class LogIn extends Component {
               disabled={this.toogleNextButtonState()}
             />
           </View>
-          <View
+          
+        </View>
+        <Loader 
+        modalVisible={loadingVisible} 
+        animationType="fade" 
+        />
+        <View
             style={[
               styles.notificationWrapper,
               { marginTop: notificationMarginTop }
@@ -123,7 +137,6 @@ export default class LogIn extends Component {
               secondLine="Lütfen tekrar deneyiniz."
             />
           </View>
-        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -158,7 +171,6 @@ const styles = StyleSheet.create({
   },
   notificationWrapper: {
     position: "absolute",
-    bottom: 0,
-    zIndex:9,
+    bottom: 0
   }
 });
