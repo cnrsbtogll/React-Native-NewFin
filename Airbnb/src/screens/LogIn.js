@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ActionCreators  from '../redux/actions';    
 import InputField from "../components/form/InputField";
 import NextArrowButton from "../components/buttons/NextArrowButton";
 import colors from "../styles/colors";
@@ -14,13 +17,14 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 
-export default class LogIn extends Component {
+class LogIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formValid: true,
       validEmail: false,
-      emailAdress: "",
+      emailAddress: '',
+      password:'',
       validPassword: false,
       loadingVisible: false,
     };
@@ -33,14 +37,12 @@ export default class LogIn extends Component {
   handleNextButton() {
     this.setState({ loadingVisible: true });
     setTimeout(() => {
-      if (
-        this.state.emailAdress === "cnrsbtogll@gmail.com" &&
-        this.state.validPassword
-      ) {
+      const{emailAddress, password}=this.state;
+      if(this.props.logIn(emailAddress, password)){
         this.setState({ formValid: true, loadingVisible:false});
-      } else {
+      }else {
         this.setState({ formValid: false, loadingVisible:false});
-      }
+      }      
     },2000);
   }
   handleCloseNotification() {
@@ -61,6 +63,8 @@ export default class LogIn extends Component {
     }
   }
   handlePasswordChange(password) {
+    this.setState({password});
+    
     if (!this.state.validPassword) {
       if (password.length > 4) {
         this.setState({ validPassword: true });
@@ -82,6 +86,7 @@ export default class LogIn extends Component {
     const showNotification = !formValid; //? false : true;
     const background = formValid ? colors.green01 : colors.darkOrange;
     const notificationMarginTop = showNotification ? 10 : 0;
+    console.log(this.props.loggedInStatus);
     return (
       <KeyboardAvoidingView
         style={[{ backgroundColor: background }, styles.wrapper]}
@@ -178,3 +183,13 @@ const styles = StyleSheet.create({
     bottom: 0
   }
 });
+const mapStateToProps=(state)=>{ 
+  return{
+    loggedInStatus:state.loggedInStatus, 
+  } 
+};
+const mapDispatchToProps=(dispatch)=>{
+  return bindActionCreators(ActionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
