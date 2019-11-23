@@ -1,11 +1,32 @@
-import React, { Component } from "react";
-import { Text, StyleSheet, View, KeyboardAvoidingView,ScrollView } from "react-native";
-import colors from "../styles/colors";
-import InputField from "../components/form/InputField";
-import Notification from "../components/Notification";
-import NextArrowButton from "../components/buttons/NextArrowButton";
-import Loader from "../components/Loader";
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import colors from '../styles/colors';
+import transparentHeaderStyle from '../styles/navigation';
+import InputField from '../components/form/InputField';
+import Notification from '../components/Notification';
+import NextArrowButton from '../components/buttons/NextArrowButton';
+import NavBarButton from '../components/buttons/NavBarButton';
+import Loader from '../components/Loader';
+import styles from './styles/ForgotPassword';
+
 export default class ForgotPassword extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: <NavBarButton
+      handleButtonPress={() => navigation.goBack()}
+      location="left"
+      icon={<Icon name="angle-left" color={colors.white} size={30} />}
+    />,
+    headerStyle: transparentHeaderStyle,
+    headerTransparent: true,
+    headerTintColor: colors.white,
+  });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -18,29 +39,31 @@ export default class ForgotPassword extends Component {
     this.goToNextStep = this.goToNextStep.bind(this);
     this.handleCloseNotification = this.handleCloseNotification.bind(this);
   }
+
   handleEmailChange(email) {
+    // eslint-disable-next-line
     const emailCheckRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //const { validEmail } = this.state;
+    const { validEmail } = this.state;
+
     this.setState({ emailAddress: email });
 
-    if (this.state.validEmail) {
+    if (!validEmail) {
       if (emailCheckRegex.test(email)) {
         this.setState({ validEmail: true });
       }
-    } else {
-      if (!emailCheckRegex.test(email)) {
-        this.setState({ validEmail: false });
-      }
+    } else if (!emailCheckRegex.test(email)) {
+      this.setState({ validEmail: false });
     }
   }
 
   goToNextStep() {
+    const { emailAddress } = this.state;
     this.setState({ loadingVisible: true });
     setTimeout(() => {
-      if (this.state.emailAddress === 'wrong@email.com') {
+      if (emailAddress === 'wrong@email.com') {
         this.setState({
           loadingVisible: false,
-          formValid: false
+          formValid: false,
         });
       } else {
         this.setState({
@@ -50,9 +73,11 @@ export default class ForgotPassword extends Component {
       }
     }, 2000);
   }
+
   handleCloseNotification() {
     this.setState({ formValid: true });
   }
+
   render() {
     const { loadingVisible, formValid, validEmail } = this.state;
     const background = formValid ? colors.green01 : colors.darkOrange;
@@ -60,19 +85,19 @@ export default class ForgotPassword extends Component {
     return (
       <KeyboardAvoidingView
         style={[{ backgroundColor: background }, styles.wrapper]}
-        //behavior="padding"
+        behavior="padding"
       >
         <View style={styles.scrollViewWrapper}>
           <ScrollView style={styles.scrollView}>
             <Text style={styles.forgotPasswordHeading}>
-              Forgot your password?
+Forgot your password?
             </Text>
             <Text style={styles.forgotPasswordSubheading}>
-              Enter your email to find your account
+Enter your email to find your account
             </Text>
             <InputField
               customStyle={{ marginBottom: 30 }}
-              textColor={colors.white} 
+              textColor={colors.white}
               labelText="EMAIL ADDRESS"
               labelTextSize={14}
               labelColor={colors.white}
@@ -87,60 +112,20 @@ export default class ForgotPassword extends Component {
             disabled={!validEmail}
           />
         </View>
-        <Loader 
-            modalVisible={loadingVisible} 
-            animationType="fade" 
+        <Loader
+          modalVisible={loadingVisible}
+          animationType="fade"
         />
         <View style={styles.notificationWrapper}>
           <Notification
             showNotification={showNotification}
             handleCloseNotification={this.handleCloseNotification}
             type="Error"
-            firstLine=" Hesap mevcut değil."
-            secondLine="Girilen Mail adresi için."
+            firstLine="No account exists for the requested"
+            secondLine="email address."
           />
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    display: "flex",
-    flex: 1
-  },
-  scrollViewWrapper: {
-    marginTop: 70,
-    flex: 1,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
-  scrollView: {
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 20,
-    flex: 1,
-  },
-  forgotPasswordHeading: {
-    fontSize: 28,
-    color: colors.white,
-    fontWeight: "300"
-  },
-  forgotPasswordSubheading: {
-    color: colors.white,
-    fontWeight: "600",
-    fontSize: 15,
-    marginTop: 10,
-    marginBottom: 60
-  },
-  notificationWrapper: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-});

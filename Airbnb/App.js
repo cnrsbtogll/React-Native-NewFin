@@ -10,15 +10,15 @@ StatusBar.setBarStyle('light-content', true);
 class App extends Component{
   render() {
     return (
-      <TurnOnNotifications/>
-      // <Provider store={configureStore({})}>
-      //   <Root/> 
-      //   </Provider>
+      //<TurnOnNotifications/>
+      <Provider store={configureStore({})}>
+        <Root/> 
+        </Provider>
     );
   }
 }
 
-//AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent('App', () => App);
 
 
 export default App;
