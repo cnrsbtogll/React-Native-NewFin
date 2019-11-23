@@ -4,26 +4,14 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
+import NoResults from '../components/saved/NoResults';
+import colors from '../styles/colors';
 
 export default class SavedContainer extends Component {
-  static navigationOptions={
-    tabBarLabel:'SAVED',
-    tabBarIcon: ({tintColor})=>(
-      <Icon
-        name="ios-heart-outline"
-        size={19}
-        color={tintColor}
-      />
-    ),
-  };
-  
   render() {
     return (
       <View style={styles.wrapper}>
-        <Text>
-Saved Container
-        </Text>
+        <NoResults />
       </View>
     );
   }
@@ -32,6 +20,6 @@ Saved Container
 const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
-    padding: 50,
+    backgroundColor: colors.white,
   },
 });

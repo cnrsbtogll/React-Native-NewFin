@@ -5,11 +5,11 @@ import { NavigationActions } from 'react-navigation';
 import {
   View,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../styles/colors';
 import transparentHeaderStyle from '../styles/navigation';
-import styles from './styles/TurnOnNotifications';
+import styles from './styles/TurnOnNotifications'; 
 
 const navigateToTabsAction = NavigationActions.navigate({
   routeName: 'LoggedIn',
@@ -62,7 +62,7 @@ export default class TurnOnNotifications extends Component {
         <View style={styles.content}>
           <Icon
             name="comments-o"
-            size={46}
+            size={46} 
             style={styles.icon}
           />
           <Text style={styles.title}>
@@ -72,7 +72,7 @@ export default class TurnOnNotifications extends Component {
             We can let you know when someone messages you,
             or notify you about other important account activity.
           </Text>
-          <TouchableHighlight
+          <TouchableOpacity
             style={[
               { backgroundColor: notifyBtnColor },
               styles.notifyButton,
@@ -85,8 +85,8 @@ export default class TurnOnNotifications extends Component {
             <Text style={[{ color: colors.white }, styles.buttonText]}>
   Yes, notify me
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             style={[{ backgroundColor: pressSkipBtn ? colors.gray01 : 'transparent' }, styles.skipButton]}
             onPress={() => navigation.dispatch(navigateToTabsAction)}
             onShowUnderlay={this.handleSkipBtnShowUnderlay}
@@ -96,7 +96,7 @@ export default class TurnOnNotifications extends Component {
             <Text style={[{ color: colors.green01 }, styles.buttonText]}>
   Skip
             </Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     );
