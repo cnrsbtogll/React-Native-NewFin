@@ -7,6 +7,7 @@ import * as ActionCreators  from '../redux/actions';
 import InputField from "../components/form/InputField";
 import NextArrowButton from "../components/buttons/NextArrowButton";
 import colors from "../styles/colors";
+import transparentHeaderStyle from '../styles/navigation';
 import Loader from "../components/Loader";
 import Notification from "../components/Notification";
 import {
@@ -18,6 +19,13 @@ import {
 } from "react-native";
 
 class LogIn extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    
+    headerStyle: transparentHeaderStyle,
+    headerTransparent: true,
+    headerTintColor: colors.white,
+  });
+
   constructor(props) {
     super(props);
     this.state = {

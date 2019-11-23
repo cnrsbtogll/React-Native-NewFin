@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
-import colors from '../styles/colors'
+import colors from '../styles/colors';
+import transparentHeaderStyle from '../styles/navigation';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 import RoundedButton from '../components/buttons/RoundedButton';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import NavBarButton from '../components/buttons/NavBarButton';
 
 export default class LogeddOut extends Component{
+  static navigationOptions = ({ navigation }) => ({
+    headerRight: <NavBarButton handleButtonPress={() => navigation.navigate('Giriş')} location="right" color={colors.white} text="Log In" />,
+    headerStyle: transparentHeaderStyle,
+    headerTransparent: true,
+    headerTintColor: colors.white,
+  });
+
     onFacebookPress(){
         alert('facbook butona basıldı');
     }
