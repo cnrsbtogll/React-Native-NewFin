@@ -1,26 +1,43 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from "react-redux";
-import { addNavigationHelpers, StackNavigator } from 'react-navigation'
-import LoggedOut from '../screens/LoggedOut'
-import LogIn from '../screens/LogIn'
-import ForgotPassword from '../screens/ForgotPassword'
+import React from 'react';
+import { compose, createStore, applyMiddleware } from 'redux';
+import {
+  reduxifyNavigator,
+  createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
+import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+import { connect } from 'react-redux';
+import AppRouteConfigs from './AppRouteConfigs';
+import reducer from '../redux/reducers';
 
-export const AppNavigator=StackNavigator({
-    LoggedOut:{screen:LoggedOut},
-    LogIn:{screen:LogIn},
-    ForgotPassword:{screen:ForgotPassword},
+const middleware = createReactNavigationReduxMiddleware(
+  'root',
+  state => state.nav,
+);
+
+const App = reduxifyNavigator(AppRouteConfigs, 'root');
+const mapStateToProps = state => ({
+  state: state.nav,
 });
 
-const AppWithNavigationState=({dispatch, nav, listener})=>(<AppNavigator navigation={addNavigationHelpers({dispatch, state:nav, addListener:listener})}/>
-);
-AppWithNavigationState.propTypes={
-    dispatch:PropTypes.func.isRequired,
-    nav:PropTypes.object.isRequired,
+const AppWithNavigationState = connect(mapStateToProps)(App);
+
+const loggerMiddleware = createLogger({ predicate: () => __DEV__ });
+
+const configureStore = (initialState) => {
+  const enhancer = compose(
+    applyMiddleware(
+      middleware,
+      thunkMiddleware,
+      loggerMiddleware,
+    ),
+  );
+  return createStore(reducer, initialState, enhancer);
 };
 
-const mapStateToProps=state=>({
-    nav:state.nav,
-})
+const Root = () => <AppWithNavigationState />;
 
-export default connect(mapStateToProps)(AppWithNavigationState);
+export {
+  configureStore,
+  Root,
+};
