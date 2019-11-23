@@ -1,8 +1,4 @@
-/**
- * Airbnb Clone App
- * @author: Andy
- * @Url: https://www.cubui.com
- */
+
 import colors from '../styles/colors';
 
 const listing1Photo = require('./photos/listing1.png');
