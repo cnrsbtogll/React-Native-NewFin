@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "apollo-cache-inmemory": "1.2.8",
+    "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.4.0",
     "apollo-link-http": "1.5.4",
     "graphql": "0.13.2",
