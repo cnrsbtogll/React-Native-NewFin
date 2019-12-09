@@ -5,6 +5,7 @@ import {
   Image,
   TouchableHighlight,
   ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../styles/colors';
@@ -22,17 +23,18 @@ export default class LoggedOut extends Component {
     headerTransparent: true,
     headerTintColor: colors.white,
   });
+  constructor(props) {
+    super(props);
 
-  static onFacebookPress() {
+  this.onCreateAccountPress = this.onCreateAccountPress.bind(this);
+  this.onFacebookPress = this.onFacebookPress.bind(this);
+  }
+  onFacebookPress() {
     alert('Facebook button pressed');
   }
 
-  static onCreateAccountPress() {
-    this.props.navigation.navigate('LogIn')
-  }
-
-  static onMoreOptionsPress() {
-    alert('More options button pressed');
+  onCreateAccountPress() {
+     this.props.navigation.navigate('CreateAccount');
   }
 
   render() {
@@ -46,18 +48,17 @@ export default class LoggedOut extends Component {
           <Text style={styles.welcomeText}>
 Welcome to NewFin.
           </Text>
-          
           <RoundedButton
             text="Continue with Facebook"
             textColor={colors.green01}
             background={colors.white}
             icon={<Icon name="facebook" size={20} style={styles.facebookButtonIcon} />}
             handleOnPress={this.onFacebookPress}
-          />
+          />         
           <RoundedButton
             text="Create Account"
             textColor={colors.white}
-            handleOnPresss={() => this.props.navigation.navigate('LogIn')} 
+            handleOnPress={this.onCreateAccountPress}
           />
 
           
