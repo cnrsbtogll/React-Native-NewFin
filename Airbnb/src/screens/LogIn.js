@@ -140,6 +140,7 @@ Log In
               customStyle={{ marginBottom: 30 }}
               onChangeText={this.handleEmailChange}
               showCheckmark={validEmail}
+              keyType="next"
               autoFocus
             />
             <InputField
@@ -151,6 +152,7 @@ Log In
               inputType="password"
               customStyle={{ marginBottom: 30 }}
               onChangeText={this.handlePasswordChange}
+              keyType="go"
               showCheckmark={validPassword}
             />
           </ScrollView>

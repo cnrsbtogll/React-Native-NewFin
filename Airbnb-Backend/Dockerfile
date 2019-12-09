@@ -1,5 +1,5 @@
 FROM node:10.16.3-slim
-MAINTAINER Caner SABITOGULLARI <cnrsbtogll@gmail.com>
+MAINTAINER caner
 
 # Expose the default port
 EXPOSE 8080

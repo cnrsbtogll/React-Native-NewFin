@@ -66,28 +66,28 @@ const LoggedInTabNavigator = createBottomTabNavigator({
     screen: SavedContainer,
     navigationOptions: {
       tabBarLabel: 'SAVED',
-      tabBarIcon: CustomTabBarIcon('ios-heart-outline', 22),
+      tabBarIcon: CustomTabBarIcon('ios-heart-empty', 22),
     },
   },
   Trips: {
     screen: TripsContainer,
     navigationOptions: {
       tabBarLabel: 'TRIPS',
-      tabBarIcon: CustomTabBarIcon('ios-ionic', 21),
+      tabBarIcon: CustomTabBarIcon('ios-globe', 21),
     },
   },
   Inbox: {
     screen: InboxContainer,
     navigationOptions: {
       tabBarLabel: 'INBOX',
-      tabBarIcon: CustomTabBarIcon('ios-archive-outline', 25),
+      tabBarIcon: CustomTabBarIcon('ios-filing', 25),
     },
   },
   Profile: {
     screen: ProfileContainer,
     navigationOptions: {
       tabBarLabel: 'PROFILE',
-      tabBarIcon: CustomTabBarIcon('ios-contact-outline', 22),
+      tabBarIcon: CustomTabBarIcon('ios-contact', 22),
     },
   },
 }, {

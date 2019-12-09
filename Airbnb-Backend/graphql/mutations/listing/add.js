@@ -15,7 +15,7 @@ import {
              type:new GraphQLNonNull(listingInputType)
          }
      },
-     async resolve(root,params){
+     async resolve (root, params){
          const listingModel=new ListingModel(params.data);
          const newListing = await listingModel.save();
          if(!newListing){
@@ -23,4 +23,4 @@ import {
          }
          return newListing;
      }
- }
+ };

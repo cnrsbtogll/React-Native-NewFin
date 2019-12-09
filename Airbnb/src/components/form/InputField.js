@@ -61,6 +61,7 @@ export default class InputField extends Component {
       autoCapitalize,
       placeholder,
       defaultValue,
+      keyType
     } = this.props;
     const { secureInput, scaleCheckmarkValue, inputValue } = this.state;
     const fontSize = labelTextSize || 14;
@@ -118,6 +119,7 @@ export default class InputField extends Component {
           placeholder={placeholder}
           defaultValue={inputValue}
           value={inputValue}
+          returnKeyType={keyType}
         />
       </View>
     );
@@ -140,6 +142,7 @@ InputField.propTypes = {
   inputStyle: PropTypes.object,
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
+  keyType:PropTypes.string,
 };
 
 const styles = StyleSheet.create({

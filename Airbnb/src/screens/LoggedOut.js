@@ -13,7 +13,7 @@ import RoundedButton from '../components/buttons/RoundedButton';
 import NavBarButton from '../components/buttons/NavBarButton';
 import styles from './styles/LoggedOut';
 
-const airbnbLogo = require('../img/airbnb-logo.png');
+const newfinLogo = require('../img/NewFin-logo.png');
 
 export default class LoggedOut extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -28,7 +28,7 @@ export default class LoggedOut extends Component {
   }
 
   static onCreateAccountPress() {
-    alert('Create Account button pressed');
+    this.props.navigation.navigate('LogIn')
   }
 
   static onMoreOptionsPress() {
@@ -40,12 +40,13 @@ export default class LoggedOut extends Component {
       <ScrollView style={styles.wrapper}>
         <View style={styles.welcomeWrapper}>
           <Image
-            source={airbnbLogo}
+            source={newfinLogo}
             style={styles.logo}
           />
           <Text style={styles.welcomeText}>
-Welcome to Airbnb.
+Welcome to NewFin.
           </Text>
+          
           <RoundedButton
             text="Continue with Facebook"
             textColor={colors.green01}
@@ -56,26 +57,17 @@ Welcome to Airbnb.
           <RoundedButton
             text="Create Account"
             textColor={colors.white}
-            handleOnPress={this.onCreateAccountPress}
+            handleOnPresss={() => this.props.navigation.navigate('LogIn')} 
           />
 
-          <TouchableHighlight
-            style={styles.moreOptionsButton}
-            onPress={this.onMoreOptionsPress}
-          >
-            <Text style={styles.moreOptionsButtonText}>
-              More options
-            </Text>
-          </TouchableHighlight>
+          
           <View style={styles.termsAndConditions}>
             <Text style={styles.termsText}>
-              By tapping Continue, Create Account or More
+              By tapping Continue, Create Account 
             </Text>
+           
             <Text style={styles.termsText}>
-              {' options,'}
-            </Text>
-            <Text style={styles.termsText}>
-              {"I agree to Airbnb's "}
+              {"I agree to NewFin's "}
             </Text>
             <TouchableHighlight style={styles.linkButton}>
               <Text style={styles.termsText}>
