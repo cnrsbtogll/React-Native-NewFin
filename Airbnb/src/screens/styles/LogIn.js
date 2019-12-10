@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollViewWrapper: {
-    marginTop: 70,
+    marginTop: 50,
     flex: 1,
     padding: 0,
     position: 'absolute',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingLeft: 30,
     paddingRight: 30,
-    paddingTop: 20,
+    paddingTop: 10,
     flex: 1,
   },
   loginHeader: {

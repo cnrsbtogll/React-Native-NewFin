@@ -58,38 +58,38 @@ const LoggedInTabNavigator = createBottomTabNavigator({
   Explore: {
     screen: ExploreTab,
     navigationOptions: {
-      tabBarLabel: 'EXPLORE',
-      tabBarIcon: CustomTabBarIcon('ios-search', 22),
+      tabBarLabel: 'NEWS',
+      tabBarIcon: CustomTabBarIcon('ios-paper-plane', 22),
     },
   },
   Saved: {
     screen: SavedContainer,
     navigationOptions: {
-      tabBarLabel: 'SAVED',
-      tabBarIcon: CustomTabBarIcon('ios-heart-empty', 22),
+      tabBarLabel: 'CONVERTER',
+      tabBarIcon: CustomTabBarIcon('ios-trending-up', 22),
     },
   },
   Trips: {
     screen: TripsContainer,
     navigationOptions: {
-      tabBarLabel: 'TRIPS',
-      tabBarIcon: CustomTabBarIcon('ios-globe', 21),
+      tabBarLabel: 'CALCULATOR',
+      tabBarIcon: CustomTabBarIcon('ios-calculator', 21),
     },
   },
   Inbox: {
     screen: InboxContainer,
     navigationOptions: {
-      tabBarLabel: 'INBOX',
-      tabBarIcon: CustomTabBarIcon('ios-filing', 25),
+      tabBarLabel: 'LOCATION',
+      tabBarIcon: CustomTabBarIcon('ios-locate', 25),
     },
   },
-  Profile: {
-    screen: ProfileContainer,
-    navigationOptions: {
-      tabBarLabel: 'PROFILE',
-      tabBarIcon: CustomTabBarIcon('ios-contact', 22),
-    },
-  },
+  // Profile: {
+  //   screen: ProfileContainer,
+  //   navigationOptions: {
+  //     tabBarLabel: 'PROFILE',
+  //     tabBarIcon: CustomTabBarIcon('ios-contact', 22),
+  //   },
+  // },
 }, {
   tabBarOptions: {
     labelStyle: {

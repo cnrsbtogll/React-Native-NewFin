@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import firebase from 'firebase'
 import colors from "../styles/colors";
+import transparentHeaderStyle from '../styles/navigation';
 export default class CreateAccount extends Component {
   state = {email: '', password: '', errorMessage: null};
   constructor(props) {
@@ -16,6 +17,11 @@ export default class CreateAccount extends Component {
 
   this.signupNow = this.signupNow.bind(this);
   }
+  static navigationOptions = () => ({
+    headerStyle: transparentHeaderStyle,
+    headerTransparent: true,
+    headerTintColor: colors.white,
+  });
 
   signupNow = () => {
     if (this.state.email && this.state.password) {

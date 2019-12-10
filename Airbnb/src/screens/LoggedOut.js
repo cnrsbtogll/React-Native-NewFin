@@ -52,7 +52,7 @@ Welcome to NewFin.
             text="Log In"
             textColor={colors.green01}
             background={colors.white}
-            icon={<Icon name="sign-in" size={20} style={styles.facebookButtonIcon} />}
+            icon={<Icon name="sign-in" size={20} style={styles.logInButtonIcon} />}
             handleOnPress={this.onLogInPress}
           />         
           <RoundedButton

@@ -133,7 +133,7 @@ Log In
               textColor={colors.white}
               borderBottomColor={colors.white}
               inputType="email"
-              customStyle={{ marginBottom: 30 }}
+              customStyle={{ marginBottom: 10 }}
               onChangeText={this.handleEmailChange}
               showCheckmark={validEmail}            
               autoFocus
@@ -145,7 +145,7 @@ Log In
               textColor={colors.white}
               borderBottomColor={colors.white}
               inputType="password"
-              customStyle={{ marginBottom: 30 }}
+              customStyle={{ marginBottom: 10 }}
               onChangeText={this.handlePasswordChange}
               showCheckmark={validPassword}
             />

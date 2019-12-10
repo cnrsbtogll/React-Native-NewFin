@@ -20,12 +20,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginTop: 30,
     padding: 20,
+    alignItems:'center'
   },
   logo: {
-    width: 50,
-    height: 50,
+    width: 120,
+    height: 120,
     marginTop: 50,
-    marginBottom: 40,
+    marginBottom: 10,
+    alignSelf:'center'
+    
+    
   },
   welcomeText: {
     fontSize: headingTextSize,
@@ -33,34 +37,13 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginBottom: 40,
   },
-  facebookButtonIcon: {
+  logInButtonIcon: {
     color: colors.green01,
     position: 'relative',
     left: 20,
     zIndex: 8,
   },
-  moreOptionsButton: {
-    marginTop: 10,
-  },
-  moreOptionsButtonText: {
-    color: colors.white,
-    fontSize: 16,
-  },
-  termsAndConditions: {
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-    marginTop: 30,
-  },
-  termsText: {
-    color: colors.white,
-    fontSize: termsTextSize,
-    fontWeight: '600',
-  },
-  linkButton: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.white,
-  },
+
 });
 
 export default styles;
