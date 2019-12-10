@@ -60,49 +60,6 @@ Welcome to NewFin.
             textColor={colors.white}
             handleOnPress={this.onCreateAccountPress}
           />
-
-          
-          <View style={styles.termsAndConditions}>
-            <Text style={styles.termsText}>
-              By tapping Continue, Create Account 
-            </Text>
-           
-            <Text style={styles.termsText}>
-              {"I agree to NewFin's "}
-            </Text>
-            <TouchableHighlight style={styles.linkButton}>
-              <Text style={styles.termsText}>
-                Terms of Service
-              </Text>
-            </TouchableHighlight>
-            <Text style={styles.termsText}>
-              ,
-            </Text>
-            <TouchableHighlight style={styles.linkButton}>
-              <Text style={styles.termsText}>
-                Payments Terms of Service
-              </Text>
-            </TouchableHighlight>
-            <Text style={styles.termsText}>
-              ,
-            </Text>
-            <TouchableHighlight style={styles.linkButton}>
-              <Text style={styles.termsText}>
-                Privacy Policy
-              </Text>
-            </TouchableHighlight>
-            <Text style={styles.termsText}>
-              , and
-            </Text>
-            <TouchableHighlight style={styles.linkButton}>
-              <Text style={styles.termsText}>
-                Nondiscrimination Policy
-              </Text>
-            </TouchableHighlight>
-            <Text style={styles.termsText}>
-              .
-            </Text>
-          </View>
         </View>
       </ScrollView>
     );
