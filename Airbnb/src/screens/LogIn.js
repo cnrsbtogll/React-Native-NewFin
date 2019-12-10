@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   KeyboardAvoidingView,
+  ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +19,7 @@ import Notification from '../components/Notification';
 import Loader from '../components/Loader';
 import NavBarButton from '../components/buttons/NavBarButton';
 import styles from './styles/LogIn';
-
+import firebase from 'firebase'
 class LogIn extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerRight: <NavBarButton
@@ -54,29 +55,24 @@ class LogIn extends Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.toggleNextButtonState = this.toggleNextButtonState.bind(this);
   }
-
-  handleNextButton() {
-    this.setState({ loadingVisible: true });
-    const { logIn, navigation } = this.props;
-    const { navigate } = navigation;
-
-    setTimeout(() => {
-      const { emailAddress, password } = this.state;
-      if (logIn(emailAddress, password)) {
-        this.setState({ formValid: true, loadingVisible: false });
-        navigate('TurnOnNotifications');
-      } else {
-        this.setState({ formValid: false, loadingVisible: false });
-      }
-    }, 2000);
-  }
+  handleNextButton(){
+    if (this.state.emailAddress && this.state.password) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.emailAddress, this.state.password)
+        .then(() => this.props.navigation.navigate('LoggedIn'))
+        .catch(error => this.setState({errorMessage: error.message}));
+    } else {
+      ToastAndroid.show('Please fill all the fields!', ToastAndroid.LONG);
+    }
+  };
 
   handleCloseNotification() {
     this.setState({ formValid: true });
   }
 
   handleEmailChange(email) {
-    // eslint-disable-next-line
+   
     const emailCheckRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const { validEmail } = this.state;
     this.setState({ emailAddress: email });
@@ -97,7 +93,7 @@ class LogIn extends Component {
 
     if (!validPassword) {
       if (password.length > 4) {
-        // Password has to be at least 4 characters long
+       
         this.setState({ validPassword: true });
       }
     } else if (password <= 4) {
@@ -139,8 +135,7 @@ Log In
               inputType="email"
               customStyle={{ marginBottom: 30 }}
               onChangeText={this.handleEmailChange}
-              showCheckmark={validEmail}
-              keyType="next"
+              showCheckmark={validEmail}            
               autoFocus
             />
             <InputField
@@ -152,7 +147,6 @@ Log In
               inputType="password"
               customStyle={{ marginBottom: 30 }}
               onChangeText={this.handlePasswordChange}
-              keyType="go"
               showCheckmark={validPassword}
             />
           </ScrollView>

@@ -17,20 +17,20 @@ import styles from './styles/LoggedOut';
 const newfinLogo = require('../img/NewFin-logo.png');
 
 export default class LoggedOut extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerRight: <NavBarButton handleButtonPress={() => navigation.navigate('LogIn')} location="right" color={colors.white} text="Log In" />,
-    headerStyle: transparentHeaderStyle,
-    headerTransparent: true,
-    headerTintColor: colors.white,
-  });
   constructor(props) {
     super(props);
 
   this.onCreateAccountPress = this.onCreateAccountPress.bind(this);
-  this.onFacebookPress = this.onFacebookPress.bind(this);
+  this.onLogInPress = this.onLogInPress.bind(this);
   }
-  onFacebookPress() {
-    alert('Facebook button pressed');
+  static navigationOptions = () => ({
+    headerStyle: transparentHeaderStyle,
+    headerTransparent: true,
+    headerTintColor: colors.white,
+  });
+ 
+  onLogInPress() {
+    this.props.navigation.navigate('LogIn');
   }
 
   onCreateAccountPress() {
@@ -49,15 +49,15 @@ export default class LoggedOut extends Component {
 Welcome to NewFin.
           </Text>
           <RoundedButton
-            text="Continue with Facebook"
+            text="Log In"
             textColor={colors.green01}
             background={colors.white}
-            icon={<Icon name="facebook" size={20} style={styles.facebookButtonIcon} />}
-            handleOnPress={this.onFacebookPress}
+            icon={<Icon name="sign-in" size={20} style={styles.facebookButtonIcon} />}
+            handleOnPress={this.onLogInPress}
           />         
           <RoundedButton
             text="Create Account"
-            textColor={colors.white}
+            textColor={colors.white}           
             handleOnPress={this.onCreateAccountPress}
           />
         </View>

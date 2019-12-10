@@ -11,13 +11,18 @@ import firebase from 'firebase'
 import colors from "../styles/colors";
 export default class CreateAccount extends Component {
   state = {email: '', password: '', errorMessage: null};
+  constructor(props) {
+    super(props);
+
+  this.signupNow = this.signupNow.bind(this);
+  }
 
   signupNow = () => {
     if (this.state.email && this.state.password) {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(() => this.props.navigation.navigate('Home'))
+        .then(() => this.props.navigation.navigate('TurnOnNotifications'))
         .catch(error => this.setState({errorMessage: error.message}));
     } else {
       ToastAndroid.show('Please fill all the fields!', ToastAndroid.LONG);
@@ -60,7 +65,7 @@ export default class CreateAccount extends Component {
           <Text>
             Already have an account?
             <Text
-              onPress={() => this.props.navigation.navigate('Login')}
+              onPress={() => this.props.navigation.navigate('LogIn')}
               style={{color: colors.white, fontSize: 18}}>
               Login
             </Text>

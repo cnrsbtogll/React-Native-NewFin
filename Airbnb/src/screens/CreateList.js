@@ -69,7 +69,7 @@ class CreateList extends Component {
     this.setState({ loading: true });
     this.listCreated = true;
 
-    // Faking slow server
+
     setTimeout(() => {
       this.setState({ loading: false }, () => {
         goBack();
