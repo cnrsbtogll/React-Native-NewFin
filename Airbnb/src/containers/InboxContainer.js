@@ -1,25 +1,14 @@
-import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import React, { Component } from 'react'
+import { Text, StyleSheet, View } from 'react-native'
 
 export default class InboxContainer extends Component {
   render() {
     return (
-      <View style={styles.wrapper}>
-        <Text>
-Inbox Container
-        </Text>
+      <View>
+        <Text> haritasın sen </Text>
       </View>
-    );
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    display: 'flex',
-    padding: 50,
-  },
-});
+const styles = StyleSheet.create({})
