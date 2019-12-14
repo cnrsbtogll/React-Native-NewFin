@@ -1,133 +1,74 @@
-import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
-//import { graphql } from 'react-apollo';
-//import gql from 'graphql-tag';
-import SearchBar from '../components/SearchBar';
-import Categories from '../components/explore/Categories';
-import Listings from '../components/explore/Listings';
-import colors from '../styles/colors';
-import categoriesList from '../data/categories';
-import listings from '../data/listings';
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, StyleSheet, FlatList,SafeAreaView } from "react-native";
+import colors from "../styles/colors";
+import prettyTime from './PrettyTime';
 
-class ExploreContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      favouriteListings: [],
-    };
-    this.handleAddToFav = this.handleAddToFav.bind(this);
-    this.renderListings = this.renderListings.bind(this);
-    this.onCreateListClose = this.onCreateListClose.bind(this);
+const ExploreContainer = () => {
+  const [headlines, setHeadlines] = useState({});
+  const category = "technology";
+  const country = "tr";
+  const API_KEY = "af4f5408d07041069c14a7c585b20fe9";
+  const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${API_KEY}`;
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    (await fetch(url)).json().then(res => setHeadlines(res));
   }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
-
-  handleAddToFav(listing) {
-    const { navigate } = this.props.navigation;
-    let { favouriteListings } = this.state;
-
-    const index = favouriteListings.indexOf(listing.id);
-    if (index > -1) {
-      favouriteListings = favouriteListings.filter(item => item !== listing.id);
-      this.setState({ favouriteListings });
-    } else {
-      navigate('CreateList', { listing, onCreateListClose: this.onCreateListClose });
-    }
-  }
-
-  onCreateListClose(listingId, listCreated) {
-    let { favouriteListings } = this.state;
-    if (listCreated) {
-      favouriteListings.push(listingId);
-    } else {
-      favouriteListings = favouriteListings.filter(item => item !== listingId);
-    }
-    this.setState({ favouriteListings });
-  }
-
-  renderListings() {
-    return listings.map((listing, index) => (
-      <View
-        key={`listing-${index}`}
-      >
-        <Listings
-          key={`listing-item-${index}`}
-          title={listing.title}
-          boldTitle={listing.boldTitle}
-          listings={listing.listings}
-          showAddToFav={listing.showAddToFav}
-          handleAddToFav={this.handleAddToFav}
-          favouriteListings={this.state.favouriteListings}
-        />
-      </View>
-    ));
-  }
-
-  render() {
-    const { data } = this.props;
-
-   // console.log(data.multipleListings)
-
+  
+  function renderItem({ item }) {
     return (
-      <View style={styles.wrapper}>
-        <SearchBar />
-        <ScrollView
-          style={styles.scrollview}
-          contentContainerStyle={styles.scrollViewContent}
-        >
-          <Text style={styles.heading}>
-News NewFin
-          </Text>
-          <View style={styles.categories}>
-            <Categories categories={categoriesList} />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          padding: 10,
+          borderBottom: 1,
+          borderBottomWidth: 1,
+          borderBottomColor: "#eee"
+        }}
+      >
+        <Image
+          style={{ width: 100, height: 100 }}
+          source={{ uri: item.urlToImage }}
+        />
+        <View style={{ flex: 1, paddingLeft: 10 }}>
+          <Text style={{ flexWrap: "wrap" }}>{item.title}</Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-end"
+            }}
+          >
+            <Text>{item.source.name}</Text>
+            <Text>{prettyTime(item.publishedAt)}</Text>
           </View>
-          {this.renderListings()}
-        </ScrollView>
+        </View>
       </View>
     );
   }
-}
+  return (
+<SafeAreaView style={styles.wrapper}>
+    <FlatList
+      data={headlines.articles}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.title}
+    />
+  </SafeAreaView>
+  );
+};
+
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.white
   },
-  scrollview: {
-    paddingTop: 100,
-  },
-  scrollViewContent: {
-    paddingBottom: 80,
-  },
-  categories: {
-    marginBottom: 40,
-  },
-  heading: {
-    fontSize: 22,
-    fontWeight: '600',
-    paddingLeft: 20,
-    paddingBottom: 20,
-    color: colors.gray04,
-  },
+  
 });
-
-
-// const ListingsQuery = gql`
-//   query {
-//     multipleListings{
-//       title,
-//       description
-//     }
-//   }
-// `
-
-//const ExploreContainerTab = graphql(ListingsQuery)(ExploreContainer);
 
 export default ExploreContainer;
