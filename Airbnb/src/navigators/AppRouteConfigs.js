@@ -7,6 +7,7 @@ import ForgotPassword from '../screens/ForgotPassword';
 import TurnOnNotifications from '../screens/TurnOnNotifications';
 import LoggedInTabNavigator from './LoggedInTabNavigator';
 import CreateAccount from '../screens/CreateAccount';
+import NewsWebView from '../containers/NewsWebView'
 
 const AppRouteConfigs = createStackNavigator({
   LoggedOut: { screen: LoggedOut },
@@ -21,6 +22,7 @@ const AppRouteConfigs = createStackNavigator({
   ForgotPassword: { screen: ForgotPassword },
   TurnOnNotifications: { screen: TurnOnNotifications },
   CreateAccount:{screen:CreateAccount},
+  NewsWebView: { screen: NewsWebView },
 });
 
 export default AppRouteConfigs;
