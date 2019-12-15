@@ -7,7 +7,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import ExploreContainer from '../containers/ExploreContainer';
 import InboxContainer from '../containers/InboxContainer';
-import ProfileContainer from '../containers/ProfileContainer';
+
 import SavedContainer from '../containers/SavedContainer';
 import TripsContainer from '../containers/TripsContainer';
 import CreateList from '../screens/CreateList';
@@ -83,13 +83,6 @@ const LoggedInTabNavigator = createBottomTabNavigator({
       tabBarIcon: CustomTabBarIcon('ios-locate', 25),
     },
   },
-  // Profile: {
-  //   screen: ProfileContainer,
-  //   navigationOptions: {
-  //     tabBarLabel: 'PROFILE',
-  //     tabBarIcon: CustomTabBarIcon('ios-contact', 22),
-  //   },
-  // },
 }, {
   tabBarOptions: {
     labelStyle: {
